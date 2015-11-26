@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Pairwise Test Generator : PTG - Pairwise TestCase Generator">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Pairwise Test Generator</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/asilverman/pairwise_test_generator">View on GitHub</a>
+
+          <h1 id="project_title">Pairwise Test Generator</h1>
+          <h2 id="project_tagline">PTG - Pairwise TestCase Generator</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/asilverman/pairwise_test_generator/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/asilverman/pairwise_test_generator/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="ptg--pairwise-tests-generator" class="anchor" href="#ptg--pairwise-tests-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>PTG – PAIRWISE TESTS GENERATOR</h1>
+
+<p>PTG is a desktop application that was created for the automatic generation of a test case matrix covering of all t-wise combinations of input parameter values of a test scenario model described in a formatted text file. </p>
+
+<h2>
+<a id="ptg-features" class="anchor" href="#ptg-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>PTG features:</h2>
+
+<ul>
+<li>Variable name aliasing</li>
+<li>Sub-models</li>
+<li>Constraints</li>
+<li>Configuration of the size t of the t-wise combination</li>
+<li>The ability to analyze the coverage of a pre-existing test case matrix</li>
+</ul>
+
+<p>The PTG project aims to provide SW testing professionals with an automatic, simple-to-use desktop application that resolves the task of generating a selection of a sub-set of test cases from all possible combinations of test cases in such a way that all possible t-wise combinations are covered in an effectively minimal test case count with the premise of least redundancy over the parameter values.</p>
+
+<p>PTG makes use of a custom generation algorithm that is based on <a href="http://aetgweb.appcomsci.com/papers/1997-tse.html">AETG</a> and Jacek Czerwonka's <a href="https://github.com/microsoft/pict">PICT</a> algorithm. PTG applies custom additions to the above mentioned with the intention of extending the functionalities initially provided in a language that is more suitable to the current state of the art.</p>
+
+<p>PTG uses PICTs context free grammar for the description of the input model for the application.</p>
+
+<h2>
+<a id="algorithm-description" class="anchor" href="#algorithm-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithm Description:</h2>
+
+<p>The generation algorithm has two different phases: (1) preparation phase and (2) generation phase. In phase (1) the tool parses the input file and generates all the logical structures required for the generation of the test cases. Phase (2) uses a greedy heuristic in order to build one test at the time, locally optimizing the solution. It is similar to the algorithm used in AETG   with key differences being that PTG algorithm is deterministic and it does not produce candidate tests. By supporting constraints, variable name aliasing sub-modeling and coverage analysis PTG provides the tester all the tools to implement t-wise test methodologies in his project.</p>
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+
+<p>Founder: Ariel Silverman (<a href="https://github.com/asilverman" class="user-mention">@asilverman</a>)</p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>Here is where the contact info comes in</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Pairwise Test Generator maintained by <a href="https://github.com/asilverman">asilverman</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
