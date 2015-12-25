@@ -8,7 +8,7 @@ import re
 import sys
 import itertools
 from ParameterType import Parameter
-from ParameterInteractionSructure import ParameterInteractionStructure
+from ParameterInteractionStructure import ParameterInteractionStructure
 from TestSet import *
 from operator import methodcaller
 from tabulate import tabulate
@@ -52,7 +52,7 @@ def main(file_path, order=2):
     # GENERATION PHASE
     # ------------------------------------------------------------------------------------------------------------------
 
-    # Initialize TestSet to be empty # TODO - In the future must support seeds
+    # Initialize TestSet.py to be empty # TODO - In the future must support seeds
     result_set = []
 
     """ LEGEND:
@@ -61,7 +61,8 @@ def main(file_path, order=2):
         pi_list := Parameter Interaction List
     """
 
-    blup = list(itertools.chain(*[pi_obj.get_slots() for pi_obj in pi_list]))
+    all_slots = [tuple(slot.data) for slot in list(itertools.chain(*[pi_obj.get_slots() for pi_obj in pi_list]))]
+    slot_tracking = dict([(tup, True) for tup in all_slots])
 
     while any([not pi_obj.is_covered() for pi_obj in pi_list]):
 
@@ -83,7 +84,7 @@ def main(file_path, order=2):
             values_set = set(itertools.chain(*[p.get_values_list() for p in uncovered_param_set])).union(
                 cur_tc.get_values_list())
 
-            slot_lookup_pool = [s for s in Q_slot_list if not s.is_covered and all([v in values_set for v in s])]
+            slot_lookup_pool = [s for s in Q_slot_list if slot_tracking[tuple(s.data)] and all([v in values_set for v in s])]
 
             if slot_lookup_pool:  # If not empty, there exist uncovered combinations
                 max_count = 0
@@ -91,14 +92,15 @@ def main(file_path, order=2):
                 # best_slot will cover max count of uncovered combinations
                 for slot in slot_lookup_pool:
                     values = set(cur_tc.get_values_list()).union(set(slot.data))
-                    covered_slots = [slot for slot in blup if set(slot).issubset(set(values))]
-                    curr_count = len(covered_slots)
-                    if curr_count > max_count:
-                        max_count = curr_count
+                    covered_slots = [s for s in all_slots if set(s).issubset(values) and slot_tracking[tuple(slot)]]
+                    covered_count = len(covered_slots)
+                    if covered_count > max_count:
+                        max_count = covered_count
                         best_slot = slot
                         covered_slot_list = covered_slots
                 # Set all slots covered by best_slot to covered == True
-                [slot.set_covered() for slot in covered_slot_list]
+                for slot in covered_slot_list:
+                    slot_tracking[tuple(slot)] = False
 
             # All slots have been covered, pick a random slot which when added to
             # test_case would not contain any excluded combination
@@ -115,12 +117,12 @@ def main(file_path, order=2):
 
 def print_result(result_set, parameters):
     headers = [param.get_name() for param in parameters]
-    val_tanslation_map = dict()
+    val_translation_map = dict()
     for d in [param.get_value_dict() for param in parameters]:
-        val_tanslation_map.update(d)
+        val_translation_map.update(d)
         results = [headers]
     for test_case in result_set:
-        results.append([val_tanslation_map[i] for i in test_case.tc_array])
+        results.append([val_translation_map[i] for i in test_case.tc_array])
     print(tabulate(results))
     print("The count of tests is : ", len(results)-1)
 
